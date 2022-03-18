@@ -15,6 +15,8 @@ help: ## Show this help
 
 install: ## Install all app dependencies
 	docker-compose run $(DC_RUN_ARGS) --no-deps app composer install --ansi --prefer-dist
+	docker-compose run $(DC_RUN_ARGS) node npm install
+    docker-compose run $(DC_RUN_ARGS) node npm run dev
 
 update: ## Install all app dependencies
 	docker-compose run $(DC_RUN_ARGS) --no-deps app composer update --ansi --prefer-dist
@@ -28,6 +30,7 @@ shnode: ## Start shell into node container
 init: ## Make full application initialization
 	docker-compose run $(DC_RUN_ARGS) app php ./artisan migrate --force --seed
 	-docker-compose run $(DC_RUN_ARGS) --no-deps app php ./artisan storage:link
+
 
 migrate: ## Make full application initialization
 	docker-compose run $(DC_RUN_ARGS) app php ./artisan migrate --force
